@@ -2,7 +2,7 @@
 """
 Created on Thu Jul  2 12:46:51 2020
 
-@author: daniel
+@author: danie
 preparition: pip3 install githubdl
              get token from GitHub
              info:http://githubdl.seso.io/
@@ -21,7 +21,7 @@ def download_data(download=True):
     # download data from the Johns Hopkins University COVID-19 dataset
     # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports_us
       githubdl.dl_dir("https://github.com/CSSEGISandData/COVID-19",
-                "csse_covid_19_data", github_token="-----")
+                "csse_covid_19_data", github_token="9429c2c9be19a81ad22c8bdcc887780ecc4f1a6f")
       
 # =============================================================================
 

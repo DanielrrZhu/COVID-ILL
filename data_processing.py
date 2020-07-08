@@ -21,7 +21,7 @@ def download_data(download=True):
     # download data from the Johns Hopkins University COVID-19 dataset
     # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports_us
       githubdl.dl_dir("https://github.com/CSSEGISandData/COVID-19",
-                "csse_covid_19_data", github_token="9429c2c9be19a81ad22c8bdcc887780ecc4f1a6f")
+                "csse_covid_19_data", github_token="-------")
       
 # =============================================================================
 
@@ -79,6 +79,6 @@ def load_data(load = True):
         data[i,5]=copy.deepcopy(CaseNum[i+5])
     return(data)
 # =============================================================================
-#download_data()
-#Process_data()
+download_data()
+Process_data()
 Data = load_data()

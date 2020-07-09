@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jul  2 12:46:51 2020
+Created on Jul 2020
 
-@author: danie
+@author: daniel
 preparition: pip3 install githubdl
              get token from GitHub
              info:http://githubdl.seso.io/
 """
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import githubdl
 import os
 import csv
@@ -66,7 +67,7 @@ def Process_data(process = True):
 def load_data(load = True):
     Raw = pd.read_table("ProcessedData.txt",sep='   ', header=0)
     CaseNum=Raw.drop(columns=['Date'])
-    CaseNum=np.array(CaseNum)
+    CaseNum=np.array(CaseNum)    
     DateNum = len(CaseNum)
     data=np.zeros((DateNum-5,6),dtype=int)
     
@@ -77,8 +78,41 @@ def load_data(load = True):
         data[i,3]=copy.deepcopy(CaseNum[i+3])
         data[i,4]=copy.deepcopy(CaseNum[i+4])
         data[i,5]=copy.deepcopy(CaseNum[i+5])
-    return(data)
+    return(CaseNum,data)
 # =============================================================================
-download_data()
+
+#download_data()
 Process_data()
-Data = load_data()
+(CaseNum,Data) = load_data()
+
+# =============================================================================
+# ===============PLOT===============
+plt.close('all') 
+font1 = {'family' : 'Times New Roman',
+'weight' : 'normal',
+'size'   : 23,
+}
+
+figsize = 15,9
+figure, ax1 = plt.subplots(figsize=figsize)
+ax1.plot(range(0,len(CaseNum)), CaseNum, color="r", linestyle="-", marker="*", linewidth=1.0, 
+         label='Total case number')
+ax1.legend(loc=2,prop=font1)
+ax1.set_xlabel('Date since April 12',font1)
+ax1.set_ylabel('Confirmed Case in Illinois',font1)
+plt.tick_params(labelsize=23)
+
+CaseNum = CaseNum.T
+ax2 = ax1.twinx()
+Daily_NewCase = np.diff(CaseNum)
+l = np.arange(1, np.size(CaseNum,1), dtype=np.int)
+ax2.plot(l, Daily_NewCase.T, color="b", linestyle="-", marker="*", linewidth=1.0, 
+         label='Daily new case')
+ax2.legend(loc=2,bbox_to_anchor=(0,0.9),prop=font1)
+ax2.set_ylabel('Daily new case number',font1)
+
+plt.tick_params(labelsize=23)
+labels = ax1.get_xticklabels() + ax1.get_yticklabels()
+[label.set_fontname('Times New Roman') for label in labels]
+plt.show()
+plt.savefig('CaseSummary.png')

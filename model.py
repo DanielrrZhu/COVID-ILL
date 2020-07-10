@@ -10,9 +10,10 @@ preparition: pip3 install githubdl
 """
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow as tf
 import data_processing
-
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 # =============================================================================
 # Load data
 data_processing.download_data(download = False) #read preparition
